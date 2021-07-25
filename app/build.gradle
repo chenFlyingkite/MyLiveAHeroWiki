@@ -1,0 +1,136 @@
+//plugins {
+//    id 'com.android.application'
+//}
+apply plugin: 'com.android.application'
+
+
+task MyBuildInfo {
+    int vCode = 2
+    String vName = "1.0.0.${vCode}"
+    String name = "MyLAHWiki-${vName}-${vCode}"
+
+    //-- Configs
+    ext.versionCode = vCode
+    ext.versionName = vName
+    ext.APK_NAME = "${name}.apk"
+    ext.AAB_NAME = "${name}.aab"
+    ext.MAPPING = "${name}-mapping.txt"
+}
+
+android {
+
+    signingConfigs {
+        config {
+            keyAlias 'MyAndroidKey'
+            keyPassword 'MyAndroid'
+            storeFile file('../../KeyStores/chenflyingkite.jks')
+            storePassword 'MyAndroid'
+        }
+    }
+
+    // https://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.DexOptions.html
+    dexOptions {
+        jumboMode false
+        javaMaxHeapSize "1g"
+        maxProcessCount 4 // Total Memory = maxProcessCount * javaMaxHeapSize
+        threadCount (maxProcessCount * 3)
+    }
+
+    // See this for options
+    // http://tools.android.com/tips/lint-checks
+    lintOptions {
+        warning 'MissingTranslation'
+        ignore  'ContentDescription', 'SpUsage', 'ExtraTranslation'
+        ignore  'RtlCompat', 'RtlEnabled', 'RtlHardcoded', 'RtlSymmetry'
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+    flavorDimensions "default"
+
+    defaultConfig {
+        applicationId "com.flyingkite.myliveaherowiki"
+        minSdkVersion 16
+        targetSdkVersion 30
+        multiDexEnabled true
+        versionCode MyBuildInfo.versionCode
+        versionName MyBuildInfo.versionName
+
+    }
+
+    buildTypes {
+
+        debug {
+            signingConfig signingConfigs.config
+            applicationIdSuffix ".debug"
+
+            // --- Crashlytics --- start
+
+//            firebaseCrashlytics {
+//                // If you don't need crash reporting for your debug build,
+//                // you can speed up your build by disabling mapping file uploading.
+//                mappingFileUploadEnabled false
+//            }
+//
+//            manifestPlaceholders.crashlyticsEnabled = false
+//            // https://developer.android.com/studio/build/optimize-your-build.html#disable_crashlytics
+//            // https://stackoverflow.com/a/49528129
+//            ext.enableCrashlytics = false
+//            // https://docs.fabric.io/android/crashlytics/build-tools.html
+//            // Only use this flag on builds you don't proguard or upload to beta-by-crashlytics
+//            ext.alwaysUpdateBuildId = false
+//            // --- Crashlytics --- end
+        }
+        release {
+            signingConfig signingConfigs.config
+            minifyEnabled true
+            zipAlignEnabled true
+            //jniDebuggable false
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // --- Crashlytics --- start
+//            manifestPlaceholders.crashlyticsEnabled = true
+//            ext.enableCrashlytics = true
+            // --- Crashlytics --- end
+        }
+
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//        }
+    }
+}
+
+dependencies {
+
+    api 'com.google.android.material:material:1.4.0'
+    api "androidx.multidex:multidex:2.0.1"
+    api 'androidx.appcompat:appcompat:1.3.1'
+    api "androidx.recyclerview:recyclerview:1.2.1"
+    api "androidx.percentlayout:percentlayout:1.0.0"
+    api 'androidx.constraintlayout:constraintlayout:2.0.4'
+    api "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // See usage in https://jitpack.io/
+    //api 'com.github.User:Repo:Tag'
+    String ver = ''
+    ver = '4df6b34674'
+    api "com.github.chenFlyingkite:MyAndroid:$ver"
+
+    // A Java serialization/deserialization library to convert Java Objects into JSON and back
+
+    // https://github.com/google/gson
+    api 'com.google.code.gson:gson:2.8.6'
+
+    // Glide for Image cache library.
+    // https://github.com/bumptech/glide
+    api "com.github.bumptech.glide:glide:4.11.0"
+    //kapt 'com.github.bumptech.glide:compiler:4.11.0'
+}

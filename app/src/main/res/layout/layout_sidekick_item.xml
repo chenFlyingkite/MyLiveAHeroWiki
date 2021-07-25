@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/sidekick_item_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ui_frame_s_base_01"/>
+    <ImageView
+        android:id="@+id/sidekick_item_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/icon_akashi_s01"
+        android:paddingTop="@dimen/t5dp"
+        android:paddingLeft="@dimen/t5dp"
+        android:paddingRight="@dimen/t5dp"
+        android:paddingBottom="@dimen/t5dp"/>
+    <ImageView
+        android:id="@+id/sidekick_item_star"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ui_frame_s_01"/>
+
+</RelativeLayout>
