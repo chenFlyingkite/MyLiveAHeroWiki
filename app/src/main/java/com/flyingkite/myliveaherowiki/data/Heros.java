@@ -83,4 +83,15 @@ public enum Heros {
     public String getNameJa() {
         return nameJa;
     }
+
+    public static Heros findJa(String ja) {
+        Heros[] hs = Heros.values();
+        for (int i = 0; i < hs.length; i++) {
+            boolean got = hs[i].nameJa.equals(ja);
+            if (got) {
+                return hs[i];
+            }
+        }
+        return hs[0];
+    }
 }
