@@ -3,12 +3,43 @@ package com.flyingkite.myliveaherowiki.data;
 import com.flyingkite.myliveaherowiki.R;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class HeroRes {
-    public static final Map<String, Integer> heroImage = new HashMap<>();
-    public static final Map<String, Integer> sideImage = new HashMap<>();
+    private static final Map<String, Integer> heroImage = new HashMap<>();
+    private static final Map<String, Integer> sideImage = new HashMap<>();
+    private static final Map<String, Integer> attrImage = new HashMap<>();
+    private static final Map<Integer, Integer> rankImage = new HashMap<>();
+    private static final Set<String> side4star = new HashSet<>();
     static {
+        attr();
+        hero();
+    }
+
+    private static void attr() {
+        attrImage.put("水", R.drawable.icon_attr_water);
+        attrImage.put("火", R.drawable.icon_attr_fire);
+        attrImage.put("木", R.drawable.icon_attr_wood);
+        attrImage.put("光", R.drawable.icon_attr_light);
+        attrImage.put("影", R.drawable.icon_attr_dark);
+        side4star.add("アカシ");
+        side4star.add("モクダイ");
+        side4star.add("スイ");
+        side4star.add("フラミー");
+        side4star.add("ロレン");
+        side4star.add("ゴロウ");
+        side4star.add("ハックル");
+        side4star.add("カラスキ");
+        side4star.add("メリデ");
+        rankImage.put(1, R.drawable.ui_frame_h_00);
+        rankImage.put(3, R.drawable.ui_frame_h_01);
+        rankImage.put(4, R.drawable.ui_frame_h_02);
+        rankImage.put(5, R.drawable.ui_frame_h_03);
+    }
+
+    private static void hero() {
         heroImage.put("アカシ", R.drawable.icon_akashi_h01);
         sideImage.put("アカシ", R.drawable.icon_akashi_s01);
         heroImage.put("モクダイ", R.drawable.icon_mokdai_h01);
@@ -105,7 +136,56 @@ public class HeroRes {
         sideImage.put("メリデ", R.drawable.icon_melide_s01);
         heroImage.put("ヨシオリ", R.drawable.icon_yoshiori_h01);
         sideImage.put("ヨシオリ", R.drawable.icon_yoshiori_s01);
-        heroImage.put("主人公", R.drawable.icon_player_s01);
+        //heroImage.put("主人公", R.drawable.icon_player_s01); // no hero
         sideImage.put("主人公", R.drawable.icon_player_s01);
+    }
+
+    public static int getHeroImage(Hero h) {
+        return get(h, (he) -> {
+            return heroImage.get(h.nameJa);
+        });
+    }
+
+    public static int getSideImage(Hero h) {
+        return get(h, (he) -> {
+            return sideImage.get(h.nameJa);
+        });
+    }
+
+    public static int getAttrImage(Hero h) {
+        return get(h, (he) -> {
+            return attrImage.get(h.attribute);
+        });
+    }
+
+    public static int getHeroFrame(Hero h) {
+        return get(h, (he) -> {
+            return rankImage.get(h.rankFirst);
+        });
+    }
+
+    public static int getSideFrame(Hero h) {
+        return get(h, (he) -> {
+            if (side4star.contains(h.nameJa)) {
+                return R.drawable.ui_frame_s_02;
+            }
+            return R.drawable.ui_frame_s_01;
+        });
+    }
+
+    //-- Interface to simplify fetch
+    private interface Got {
+        Integer get(Hero h);
+    }
+
+    // Try to get it from g, and return 0 if null
+    private static int get(Hero h, Got g){
+        if (h != null) {
+            Integer id = g.get(h);
+            if (id != null) {
+                return id;
+            }
+        }
+        return 0;
     }
 }

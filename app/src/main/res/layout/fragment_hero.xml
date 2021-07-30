@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/lahTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey3a">
+
+        <LinearLayout
+            android:id="@+id/lahTools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/lahFavor"
+                style="@style/lahIcon"
+                android:layout_width="@dimen/t45dp"
+                android:layout_height="@dimen/t45dp"
+                android:src="@drawable/ic_favorite_border_white_48"
+                android:background="@drawable/bg_press_sky_rect"/>
+
+            <ImageView
+                android:id="@+id/lahToolBar"
+                style="@style/lahIcon"
+                android:layout_width="@dimen/t45dp"
+                android:layout_height="@dimen/t45dp"
+                android:src="@drawable/ic_open_in_browser_white_48dp"
+                android:background="@drawable/bg_press_sky_rect"/>
+
+            <ImageView
+                android:id="@+id/lahGoTop"
+                style="@style/lahGoTopW"
+                android:layout_width="@dimen/t45dp"
+                android:layout_height="@dimen/t45dp"/>
+
+            <ImageView
+                android:id="@+id/lahGoBottom"
+                style="@style/lahGoBottomW"
+                android:layout_width="@dimen/t45dp"
+                android:layout_height="@dimen/t45dp"/>
+
+            <ImageView
+                android:id="@+id/lahSortMenu"
+                style="@style/lahIcon"
+                android:layout_width="@dimen/t45dp"
+                android:layout_height="@dimen/t45dp"
+                android:src="@drawable/ic_sort_white_48dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lahInfo"
+            android:layout_toLeftOf="@id/lahTools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/common_text.white"
+            android:layout_centerVertical="true"
+            tools:text="string/cards_selection"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lahFavorBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        tools:visibility="visible"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/t20dp"
+            android:layout_height="@dimen/t20dp"
+            android:background="@color/green"
+            android:src="@drawable/icon_mokdai_h01"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lahFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/t50dp"
+            android:scrollbars="horizontal"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lahRecycler"
+        android:layout_below="@id/lahTopBar"
+        android:layout_above="@id/lahFavorBox"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey3a"
+        app:fastScrollEnabled="true"
+        app:fastScrollVerticalTrackDrawable="@drawable/recycler_track"
+        app:fastScrollVerticalThumbDrawable="@drawable/recycler_thumb"
+        app:fastScrollHorizontalTrackDrawable="@drawable/recycler_track"
+        app:fastScrollHorizontalThumbDrawable="@drawable/recycler_thumb"/>
+
+</RelativeLayout>

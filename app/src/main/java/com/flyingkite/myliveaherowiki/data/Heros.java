@@ -37,6 +37,7 @@ public enum Heros {
     Monomasa("モノマサ"),
     Procy("プロキー"),
     Gomeisa("ゴメイサ"),
+    Huckle("ハックル"), // sidekick only
     WolfmanWood("木のウルフマン"),
     WolfmanDark("影のウルフマン"),
     Nessen("ネッセン"),
@@ -46,9 +47,8 @@ public enum Heros {
     Alphecca("アルフェッカ"),
     Shaft("シャフト"),
     Kalaski("カラスキ"),
-    Yoshiori("ヨシオリ"),
-    Huckle("ハックル"), // sidekick only
     Melide("メリデ"), // sidekick only
+    Yoshiori("ヨシオリ"),
     Player("主人公"), // sidekick only
     ;
 

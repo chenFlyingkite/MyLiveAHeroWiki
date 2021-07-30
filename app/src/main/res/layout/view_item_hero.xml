@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.percentlayout.widget.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_press_sky">
+
+    <!--
+    <ImageView
+        android:id="@+id/tiImg"
+        android:padding="@dimen/t2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_widthPercent="100%"
+        app:layout_aspectRatio="100%"
+        android:src="@drawable/icon_akashi_h01"/>
+    -->
+    <!-- why fail? -->
+    <!--
+    <include
+        android:id="@+id/tiImg"
+        layout="@layout/layout_hero_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_widthPercent="100%"
+        app:layout_aspectRatio="100%"/>
+    -->
+    <ImageView
+        android:id="@+id/tiImg2"
+        android:padding="@dimen/t2dp"
+        app:layout_widthPercent="100%"
+        app:layout_aspectRatio="100%"
+        android:src="@drawable/bg_press_sky_rect"/>
+    <RelativeLayout
+        android:id="@+id/tiImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/t5dp"
+        android:layout_alignTop="@id/tiImg2"
+        android:layout_alignLeft="@id/tiImg2"
+        android:layout_alignRight="@id/tiImg2"
+        android:layout_alignBottom="@id/tiImg2">
+
+        <ImageView
+            android:id="@+id/hero_item_attr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ui_frame_h_base_fire"/>
+        <ImageView
+            android:id="@+id/hero_item_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_akashi_h01"
+            android:paddingTop="@dimen/t5dp"
+            android:paddingLeft="@dimen/t5dp"
+            android:paddingRight="@dimen/t5dp"
+            android:paddingBottom="@dimen/t5dp"/>
+        <ImageView
+            android:id="@+id/hero_item_star"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ui_frame_h_02"/>
+    </RelativeLayout>
+    <!--
+    <TextView
+        android:id="@+id/tiRightLine"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        tools:background="#a00"
+        tools:text="5"
+        android:textColor="#fff"
+        android:textStyle="bold|italic"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/t20dp"/>
+    -->
+
+    <TextView
+        android:id="@+id/tiText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/t14dp"
+        tools:text="1234"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_below="@id/tiImg"/>
+
+    <TextView
+        android:id="@+id/tiMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/t14dp"
+        tools:text="Message"
+        android:textColor="@color/skyBlue"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_below="@id/tiImg"/>
+
+</androidx.percentlayout.widget.PercentRelativeLayout>

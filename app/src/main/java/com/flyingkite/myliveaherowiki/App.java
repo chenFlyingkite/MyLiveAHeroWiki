@@ -64,6 +64,12 @@ public class App extends MultiDexApplication {
         }
     }
 
+
+    public static void showToast(@StringRes int id, Object... args) {
+        String s = me.getString(id, args);
+        showToast(s);
+    }
+
     public static void showToast(@StringRes int id) {
         Toast.makeText(me, id, Toast.LENGTH_LONG).show();
     }
