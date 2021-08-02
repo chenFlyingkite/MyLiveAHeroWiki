@@ -1,9 +1,5 @@
 package com.flyingkite.myliveaherowiki.data;
 
-import com.flyingkite.myliveaherowiki.data.field.HeroSkill;
-import com.flyingkite.myliveaherowiki.data.field.HeroValue;
-import com.flyingkite.myliveaherowiki.data.field.SideSkill;
-import com.flyingkite.myliveaherowiki.data.field.SideValue;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 

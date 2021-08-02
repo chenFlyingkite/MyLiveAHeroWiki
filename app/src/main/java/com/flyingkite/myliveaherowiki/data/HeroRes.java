@@ -11,6 +11,7 @@ public class HeroRes {
     private static final Map<String, Integer> heroImage = new HashMap<>();
     private static final Map<String, Integer> sideImage = new HashMap<>();
     private static final Map<String, Integer> attrImage = new HashMap<>();
+    private static final Map<String, Integer> attrBgImage = new HashMap<>();
     private static final Map<Integer, Integer> rankImage = new HashMap<>();
     private static final Set<String> side4star = new HashSet<>();
     static {
@@ -24,6 +25,13 @@ public class HeroRes {
         attrImage.put("木", R.drawable.icon_attr_wood);
         attrImage.put("光", R.drawable.icon_attr_light);
         attrImage.put("影", R.drawable.icon_attr_dark);
+
+        attrBgImage.put("水", R.drawable.ui_frame_h_base_water);
+        attrBgImage.put("火", R.drawable.ui_frame_h_base_fire);
+        attrBgImage.put("木", R.drawable.ui_frame_h_base_wood);
+        attrBgImage.put("光", R.drawable.ui_frame_h_base_light);
+        attrBgImage.put("影", R.drawable.ui_frame_h_base_dark);
+
         side4star.add("アカシ");
         side4star.add("モクダイ");
         side4star.add("スイ");
@@ -155,6 +163,12 @@ public class HeroRes {
     public static int getAttrImage(Hero h) {
         return get(h, (he) -> {
             return attrImage.get(h.attribute);
+        });
+    }
+
+    public static int getAttrBgImage(Hero h) {
+        return get(h, (he) -> {
+            return attrBgImage.get(h.attribute);
         });
     }
 

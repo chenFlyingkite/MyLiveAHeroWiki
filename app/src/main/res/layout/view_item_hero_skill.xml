@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:background="@color/grey3a">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/heroSkillView"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/t20dp"
+            android:textSize="@dimen/t14dp"
+            android:textColor="#fff"
+            android:background="@drawable/bg_press_sky_rect"
+            tools:text="6000"/>
+        <ImageView
+            android:id="@+id/heroSkillPlus"
+            android:layout_toRightOf="@id/heroSkillView"
+            android:layout_marginLeft="@dimen/t20dp"
+            android:layout_width="@dimen/t20dp"
+            android:layout_height="@dimen/t20dp"
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:src="@drawable/pagetop"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/heroSkillName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/t45dp"
+        android:textSize="@dimen/t14dp"
+        android:textColor="#fff"
+        android:background="@drawable/bg_rect_green"
+        tools:text="メガトン・\nクラッシャー"/>
+
+    <TextView
+        android:id="@+id/heroSkillContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/t14dp"
+        android:textColor="#fff"
+        android:background="@drawable/bg_press_sky_rect"
+        tools:text="敵単体に150%ダメージ。70%の確率で2回分のDEFダウンを付与。"/>
+
+</LinearLayout>

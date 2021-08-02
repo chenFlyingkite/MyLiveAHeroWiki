@@ -25,6 +25,14 @@ public class MainActivity extends AppCompatActivity {
         loadHero();
     }
 
+    private void loadHero() {
+        HeroFragment hf = new HeroFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.heroFragmentArea , hf)
+                .commitAllowingStateLoss();
+    }
+
     private void initLibrary() {
         Library<HeroAdapter> lib = new Library<>(findViewById(R.id.heroLib), 5);
         HeroAdapter ha = new HeroAdapter();
@@ -34,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         lib.setViewAdapter(ha);
     }
 
-    private void loadHero() {
+
+    private void loadHero2() {
         LiveAHeroWiki.attendDatabaseTasks(new TaskMonitor.OnTaskState() {
             @Override
             public void onTaskDone(int index, String tag) {

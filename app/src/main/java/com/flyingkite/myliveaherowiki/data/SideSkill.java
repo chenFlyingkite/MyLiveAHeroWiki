@@ -1,4 +1,4 @@
-package com.flyingkite.myliveaherowiki.data.field;
+package com.flyingkite.myliveaherowiki.data;
 
 import com.google.gson.annotations.SerializedName;
 

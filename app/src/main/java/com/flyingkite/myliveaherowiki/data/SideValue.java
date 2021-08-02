@@ -1,11 +1,8 @@
-package com.flyingkite.myliveaherowiki.data.field;
+package com.flyingkite.myliveaherowiki.data;
 
 import com.google.gson.annotations.SerializedName;
 
-public class HeroValue {
-    @SerializedName("rarity")
-    public int rarity = 0;
-
+public class SideValue {
     @SerializedName("level")
     public int level = 0;
 
@@ -21,12 +18,11 @@ public class HeroValue {
     @SerializedName("view")
     public int view = 0;
 
-    public HeroValue() {
+    public SideValue() {
 
     }
 
-    public HeroValue(int ra, int lv, int h, int atk, int spd, int vp) {
-        rarity = ra;
+    public SideValue(int lv, int h, int atk, int spd, int vp) {
         level = lv;
         hp = h;
         attack = atk;
@@ -36,7 +32,7 @@ public class HeroValue {
 
     @Override
     public String toString() {
-        return String.format("%d, LV %d, HP = %d, ATK = %d, SPD = %d, view = %d"
-                , rarity, level, hp, attack, speed, view);
+        return String.format("LV %d, HP = %d, ATK = %d, SPD = %d, view = %d"
+                , level, hp, attack, speed, view);
     }
 }

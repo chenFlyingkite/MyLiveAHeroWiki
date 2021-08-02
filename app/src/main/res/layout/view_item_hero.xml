@@ -82,6 +82,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/t14dp"
         tools:text="1234"
+        android:textColor="#fff"
         android:gravity="center"
         android:visibility="gone"
         android:layout_below="@id/tiImg"/>

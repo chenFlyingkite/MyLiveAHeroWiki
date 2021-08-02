@@ -96,4 +96,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <RelativeLayout
+        android:id="@+id/heroFragmentArea"
+        android:layout_marginTop="@dimen/t100dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+
 </RelativeLayout>
