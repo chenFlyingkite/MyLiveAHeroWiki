@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:background="@color/grey3a">
+
+    <TextView
+        android:id="@+id/sideSkillName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/t14dp"
+        android:textColor="#fff"
+        android:background="@drawable/bg_rect_green"
+        tools:text="メガトン・\nクラッシャー"/>
+
+    <TextView
+        android:id="@+id/sideSkillContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/t14dp"
+        android:textColor="#fff"
+        android:background="@drawable/bg_press_sky_rect"
+        tools:text="敵単体に150%ダメージ。70%の確率で2回分のDEFダウンを付与。"/>
+
+</LinearLayout>

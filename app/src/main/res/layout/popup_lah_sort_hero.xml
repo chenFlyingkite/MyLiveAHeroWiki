@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#a000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/sortReset"
+            style="@style/sortIcon.reset"/>
+
+        <ImageView
+            android:id="@+id/tosSave"
+            style="@style/sortIcon.saveW"/>
+    </LinearLayout>
+
+    <View
+        style="@style/divider_h2px"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/t80dp">
+
+                <TextView
+                    style="@style/sortTitle"
+                    android:text="@string/hero_attr"/>
+                <include
+                    android:id="@+id/sortAttributes"
+                    layout="@layout/grid_attr"/>
+
+                <TextView
+                    style="@style/sortTitle"
+                    android:text="@string/hero_rank"/>
+                <include
+                    android:id="@+id/sortRank"
+                    layout="@layout/grid_rank"/>
+
+                <View
+                    style="@style/divider_h2px"/>
+
+                <TextView
+                    style="@style/sortTitle"
+                    android:text="@string/hero_sort"/>
+                <RadioGroup
+                    android:id="@+id/sortCommonList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+                    <RadioButton
+                        android:id="@+id/sortCommonId"
+                        style="@style/sortRadio"
+                        android:checked="true"
+                        android:text="@string/hero_id"/>
+                    <RadioButton
+                        android:id="@+id/sortCommonAttr"
+                        style="@style/sortRadio"
+                        android:text="@string/hero_attr"/>
+                    <RadioButton
+                        android:id="@+id/sortCommonRank"
+                        style="@style/sortRadio"
+                        android:text="@string/hero_rank"/>
+                    <RadioButton
+                        android:id="@+id/sortCommonJob"
+                        style="@style/sortRadio"
+                        android:text="@string/hero_job"/>
+                    <RadioButton
+                        android:id="@+id/sortCommonHp"
+                        style="@style/sortRadio"
+                        android:text="@string/hero_hp"/>
+                    <RadioButton
+                        android:id="@+id/sortCommonAttack"
+                        style="@style/sortRadio"
+                        android:text="@string/hero_attack"/>
+                    <RadioButton
+                        android:id="@+id/sortCommonSpeed"
+                        style="@style/sortRadio"
+                        android:text="@string/hero_speed"/>
+                    <RadioButton
+                        android:id="@+id/sortCommonView"
+                        style="@style/sortRadio"
+                        android:text="@string/hero_view"/>
+                </RadioGroup>
+
+                <View
+                    style="@style/divider_h2px"/>
+
+                <TextView
+                    style="@style/sortTitle"
+                    android:text="@string/hero_skill_content"/>
+                <GridLayout
+                    android:id="@+id/specialArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="4"
+                    android:paddingLeft="@dimen/t10dp">
+
+                    <CheckBox
+                        android:id="@+id/specialAll"
+                        style="@style/sortRadio.2"
+                        android:text="@string/hero_all"
+                        android:checked="true"/>
+
+                    <CheckBox
+                        android:id="@+id/specialSkill1"
+                        style="@style/sortRadio.2"
+                        android:text="@string/hero_skill_1"/>
+                    <CheckBox
+                        android:id="@+id/specialSkill2"
+                        style="@style/sortRadio.2"
+                        android:text="@string/hero_skill_2"/>
+                    <CheckBox
+                        android:id="@+id/specialSkill3"
+                        style="@style/sortRadio.2"
+                        android:text="@string/hero_skill_3"/>
+                    <CheckBox
+                        android:id="@+id/specialSkill4"
+                        style="@style/sortRadio.2"
+                        android:text="@string/hero_skill_4"/>
+                    <CheckBox
+                        android:id="@+id/specialEquip"
+                        style="@style/sortRadio.2"
+                        android:text="@string/side_equip"/>
+
+                </GridLayout>
+
+                <LinearLayout
+                    android:id="@+id/sortSpecialSkills"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/sortSpecialNo"
+                        style="@style/sortText"
+                        android:text="@string/hero_no"
+                        android:checked="true"/>
+                    <CheckBox
+                        android:id="@+id/sortSpecialOneEnemy"
+                        style="@style/sortText"
+                        android:tag="@string/hero_skill_tag_one_enemy"
+                        android:text="@string/hero_skill_one_enemy"/>
+                    <CheckBox
+                        android:id="@+id/sortSpecialAllEnemy"
+                        style="@style/sortText"
+                        android:tag="@string/hero_skill_tag_all_enemy"
+                        android:text="@string/hero_skill_all_enemy"/>
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </ScrollView>
+
+</LinearLayout>

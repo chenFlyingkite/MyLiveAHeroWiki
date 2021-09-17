@@ -7,13 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.flyingkite.library.log.Loggable;
+import com.flyingkite.myliveaherowiki.util.BackPage;
 import com.flyingkite.myliveaherowiki.util.PageUtil;
+import com.flyingkite.myliveaherowiki.util.RecyclerViewUtil;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class BaseFragment extends Fragment implements Loggable, PageUtil {
+public class BaseFragment extends Fragment implements Loggable, PageUtil, RecyclerViewUtil, BackPage {
     //protected static final ExecutorService sSingle = new ThreadPoolExecutor(0, 1, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
     @Override

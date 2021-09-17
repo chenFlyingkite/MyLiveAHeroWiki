@@ -3,6 +3,7 @@ package com.flyingkite.myliveaherowiki.util;
 import android.app.Activity;
 import android.os.Build;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 
@@ -45,5 +46,9 @@ public interface PageUtil {
             return act.isDestroyed();
         }
         return false;
+    }
+
+    default void showToast(String s) {
+        Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
     }
 }

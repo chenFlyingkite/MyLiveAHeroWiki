@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">MyLiveAHeroWiki</string>
+
+    <string name="hero_selection">%d / %d 位英雄</string>
+    <string name="hero_loaded">%d 英雄已讀取</string>
+    <string name="hero_attr">屬性</string>
+    <string name="hero_rank">Rank(星數)</string>
+    <string name="hero_sort">常用排序</string>
+    <string name="hero_skill_content">技能特選</string>
+    <string name="hero_id">ID</string>
+    <string name="hero_job">役割(角色)</string>
+    <string name="hero_hp">HP</string>
+    <string name="hero_attack">Attack</string>
+    <string name="hero_speed">Speed</string>
+    <string name="hero_view">View</string>
+
+    <string name="hero_attr_water">水</string>
+    <string name="hero_attr_fires">火</string>
+    <string name="hero_attr_earth">木</string>
+    <string name="hero_attr_light">光</string>
+    <string name="hero_attr_darks">影</string>
+
+    <string name="hero_no">無</string>
+    <string name="hero_skill_1">技能 1</string>
+    <string name="hero_skill_2">技能 2</string>
+    <string name="hero_skill_3">技能 3</string>
+    <string name="hero_skill_4">助手技能</string>
+    <string name="side_equip">裝備技能</string>
+    <string name="hero_all">全部</string>
+    <string name="hero_skill_tag_one_enemy">敵単体</string>
+    <string name="hero_skill_one_enemy">敵単体 (敵單體)</string>
+    <string name="hero_skill_tag_all_enemy">敵全体</string>
+    <string name="hero_skill_all_enemy">敵全体</string>
 </resources>

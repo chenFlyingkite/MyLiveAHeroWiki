@@ -1,21 +1,12 @@
 package com.flyingkite.myliveaherowiki;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
-import com.flyingkite.library.widget.Library;
-import com.flyingkite.myliveaherowiki.data.Hero;
-import com.flyingkite.myliveaherowiki.lah.LiveAHeroWiki;
-import com.flyingkite.myliveaherowiki.library.HeroAdapter;
-import com.google.gson.Gson;
+import com.flyingkite.myliveaherowiki.util.BackPage;
 
-import java.util.Arrays;
-import java.util.List;
+import androidx.fragment.app.Fragment;
 
-import androidx.appcompat.app.AppCompatActivity;
-import flyingkite.tool.TaskMonitor;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,36 +16,24 @@ public class MainActivity extends AppCompatActivity {
         loadHero();
     }
 
+    @Override
+    public void onBackPressed() {
+        Fragment f = findFragmentById(R.id.heroFragmentArea);
+        // dismiss shown dialogs of WebPage
+        // dismiss the sort filter of main
+        if (f instanceof BackPage) {
+            BackPage p = (BackPage) f;
+            if (p.onBackPressed()) {
+                return;
+            }
+        }
+    }
+
     private void loadHero() {
         HeroFragment hf = new HeroFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.heroFragmentArea , hf)
+                .replace(R.id.heroFragmentArea, hf)
                 .commitAllowingStateLoss();
-    }
-
-    private void initLibrary() {
-        Library<HeroAdapter> lib = new Library<>(findViewById(R.id.heroLib), 5);
-        HeroAdapter ha = new HeroAdapter();
-
-        List<Hero> allHero = Arrays.asList(LiveAHeroWiki.getAllHeros());
-        ha.setDataList(allHero);
-        lib.setViewAdapter(ha);
-    }
-
-
-    private void loadHero2() {
-        LiveAHeroWiki.attendDatabaseTasks(new TaskMonitor.OnTaskState() {
-            @Override
-            public void onTaskDone(int index, String tag) {
-                runOnUiThread(() -> {
-                    Hero[] hs = LiveAHeroWiki.getAllHeros();
-                    String s = new Gson().toJson(hs);
-                    TextView t = findViewById(R.id.mainText);
-                    t.setText(s);
-                    initLibrary();
-                });
-            }
-        });
     }
 }

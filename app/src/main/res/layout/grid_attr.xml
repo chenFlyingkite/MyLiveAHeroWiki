@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:rowCount="5">
+
+    <ImageView
+        style="@style/sortIcon"
+        android:tag="@string/hero_attr_water"
+        android:src="@drawable/icon_attr_water"/>
+
+    <ImageView
+        style="@style/sortIcon"
+        android:tag="@string/hero_attr_fires"
+        android:src="@drawable/icon_attr_fire"/>
+
+    <ImageView
+        style="@style/sortIcon"
+        android:tag="@string/hero_attr_earth"
+        android:src="@drawable/icon_attr_wood"/>
+
+    <ImageView
+        style="@style/sortIcon"
+        android:tag="@string/hero_attr_light"
+        android:src="@drawable/icon_attr_light"/>
+
+    <ImageView
+        style="@style/sortIcon"
+        android:tag="@string/hero_attr_darks"
+        android:src="@drawable/icon_attr_dark"/>
+</GridLayout>

@@ -14,9 +14,14 @@ public class HeroRes {
     private static final Map<String, Integer> attrBgImage = new HashMap<>();
     private static final Map<Integer, Integer> rankImage = new HashMap<>();
     private static final Set<String> side4star = new HashSet<>();
+
+    private static final Map<String, Integer> heroBadge = new HashMap<>();
+    private static final Map<String, Integer> sideBadge = new HashMap<>();
+
     static {
         attr();
         hero();
+        badge();
     }
 
     private static void attr() {
@@ -146,6 +151,80 @@ public class HeroRes {
         sideImage.put("ヨシオリ", R.drawable.icon_yoshiori_s01);
         //heroImage.put("主人公", R.drawable.icon_player_s01); // no hero
         sideImage.put("主人公", R.drawable.icon_player_s01);
+    }
+
+    private static void badge() {
+        heroInfo(Heros.Akashi, R.drawable.image_hero_akashi, R.drawable.image_sidekick_akashi);
+        heroInfo(Heros.Akashi2, R.drawable.image_hero_akashi2, R.drawable.image_sidekick_akashi);
+        heroInfo(Heros.Mokdai, R.drawable.image_hero_mokdai, R.drawable.image_sidekick_mokdai);
+        heroInfo(Heros.Sui, R.drawable.image_hero_sui, R.drawable.image_sidekick_sui);
+        heroInfo(Heros.Ryekie, R.drawable.image_hero_ryekie, R.drawable.image_sidekick_ryekie);
+        heroInfo(Heros.Ryekie2, R.drawable.image_hero_ryekie2, R.drawable.image_sidekick_ryekie);
+        heroInfo(Heros.Crowne, R.drawable.image_hero_crowne, R.drawable.image_sidekick_crowne);
+        heroInfo(Heros.Gammei, R.drawable.image_hero_gammei, R.drawable.image_sidekick_gammei);
+        heroInfo(Heros.Barrel, R.drawable.image_hero_barrel, R.drawable.image_sidekick_barrel);
+        heroInfo(Heros.Furlong, R.drawable.image_hero_furlong, R.drawable.image_sidekick_furlong);
+        heroInfo(Heros.Victom, R.drawable.image_hero_victom, R.drawable.image_sidekick_victom);
+        heroInfo(Heros.Kyoichi, R.drawable.image_hero_kyoichi, R.drawable.image_sidekick_kyoichi);
+        heroInfo(Heros.Kyoichi2, R.drawable.image_hero_kyoichi2, R.drawable.image_sidekick_kyoichi);
+        heroInfo(Heros.Flamier, R.drawable.image_hero_flamier, R.drawable.image_sidekick_flamier);
+        heroInfo(Heros.Shoen, R.drawable.image_hero_shoen, R.drawable.image_sidekick_shoen);
+        heroInfo(Heros.Shoen2, R.drawable.image_hero_shoen2, R.drawable.image_sidekick_shoen);
+        heroInfo(Heros.Toshu, R.drawable.image_hero_toshu, R.drawable.image_sidekick_toshu);
+        heroInfo(Heros.Marfik, R.drawable.image_hero_marfik, R.drawable.image_sidekick_marfik);
+        heroInfo(Heros.Marfik2, R.drawable.image_hero_marfik2, R.drawable.image_sidekick_marfik);
+        heroInfo(Heros.PolarisMask, R.drawable.image_hero_polaris_mask, R.drawable.image_sidekick_polaris_mask);
+        heroInfo(Heros.Hydoor, R.drawable.image_hero_hydoor, R.drawable.image_sidekick_hydoor);
+        heroInfo(Heros.Kuoki, R.drawable.image_hero_kouki, R.drawable.image_sidekick_kouki);
+        heroInfo(Heros.Hitomi, R.drawable.image_hero_hitomi, R.drawable.image_sidekick_hitomi);
+        heroInfo(Heros.Hitomi2, R.drawable.image_hero_hitomi2, R.drawable.image_sidekick_hitomi);
+        heroInfo(Heros.Rakkta, R.drawable.image_hero_rakkta, R.drawable.image_sidekick_rakkta);
+        heroInfo(Heros.Loren, R.drawable.image_hero_loren, R.drawable.image_sidekick_loren);
+        heroInfo(Heros.Isaribi, R.drawable.image_hero_isaribi, R.drawable.image_sidekick_isaribi);
+        heroInfo(Heros.Goro, R.drawable.image_hero_goro, R.drawable.image_sidekick_goro);
+        heroInfo(Heros.Digram, R.drawable.image_hero_digram, R.drawable.image_sidekick_digram);
+        heroInfo(Heros.Andrew, R.drawable.image_hero_andrew, R.drawable.image_sidekick_andrew);
+        heroInfo(Heros.Alchiba, R.drawable.image_hero_alchiba, R.drawable.image_sidekick_alchiba);
+        heroInfo(Heros.Alchiba2, R.drawable.image_hero_alchiba2, R.drawable.image_sidekick_alchiba);
+        heroInfo(Heros.Subaru, R.drawable.image_hero_subaru, R.drawable.image_sidekick_subaru);
+        heroInfo(Heros.Kirsch, R.drawable.image_hero_kirsch, R.drawable.image_sidekick_kirsch);
+        heroInfo(Heros.Narihito, R.drawable.image_hero_narihito, R.drawable.image_sidekick_narihito);
+        heroInfo(Heros.Suhail, R.drawable.image_hero_suhail, R.drawable.image_sidekick_suhail);
+        heroInfo(Heros.Monomasa, R.drawable.image_hero_monomasa, R.drawable.image_sidekick_monomasa);
+        heroInfo(Heros.Procy, R.drawable.image_hero_procy, R.drawable.image_sidekick_procy);
+        heroInfo(Heros.Gomeisa, R.drawable.image_hero_gomeisa, R.drawable.image_sidekick_gomeisa);
+        heroInfo(Heros.Huckle, 0, R.drawable.image_sidekick_huckle);
+        heroInfo(Heros.WolfmanWood, R.drawable.image_hero_wolfman_wood, R.drawable.image_sidekick_wolfman_wood);
+        heroInfo(Heros.WolfmanDark, R.drawable.image_hero_wolfman_dark, R.drawable.image_sidekick_wolfman_dark);
+        heroInfo(Heros.Nessen, R.drawable.image_hero_nessen, R.drawable.image_sidekick_nessen);
+        heroInfo(Heros.Hisaki, R.drawable.image_hero_hisaki, R.drawable.image_sidekick_hisaki);
+        heroInfo(Heros.Maculata, R.drawable.image_hero_maculata, R.drawable.image_sidekick_maculata);
+        heroInfo(Heros.Rutilix, R.drawable.image_hero_rutilix, R.drawable.image_sidekick_rutilix);
+        heroInfo(Heros.Alphecca, R.drawable.image_hero_alphecca, R.drawable.image_sidekick_alphecca);
+        heroInfo(Heros.Shaft, R.drawable.image_hero_shaft, R.drawable.image_sidekick_shaft);
+        heroInfo(Heros.Kalaski, R.drawable.image_hero_kalaski, R.drawable.image_sidekick_kalaski);
+        heroInfo(Heros.Melide, 0, R.drawable.image_sidekick_melide);
+        heroInfo(Heros.Yoshiori, R.drawable.image_hero_yoshiori, R.drawable.image_sidekick_yoshiori);
+        heroInfo(Heros.Pubraseer, R.drawable.image_hero_pubraseer, R.drawable.image_sidekick_pubraseer);
+        heroInfo(Heros.Player, 0, R.drawable.image_sidekick_player);
+    }
+
+    private static void heroInfo(Heros h, int heroRes, int sideRes) {
+        String k = h.nameJa;
+        heroBadge.put(k, heroRes);
+        sideBadge.put(k, sideRes);
+    }
+
+    public static int getHeroBadge(Hero h) {
+        return get(h, (he) -> {
+            return heroBadge.get(h.nameJa);
+        });
+    }
+
+    public static int getSideBadge(Hero h) {
+        return get(h, (he) -> {
+            return sideBadge.get(h.nameJa);
+        });
     }
 
     public static int getHeroImage(Hero h) {

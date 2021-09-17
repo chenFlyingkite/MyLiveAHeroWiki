@@ -33,6 +33,14 @@ public class HeroLibrary extends Library<HeroAdapter> {
         setViewMode(viewMode);
     }
 
+    public static boolean isSideMode(int m) {
+        return m == GRID_SIDEKICK || m == ROWS_SIDEKICK;
+    }
+
+    public static boolean isRowMode(int m) {
+        return m == ROWS_HERO || m == ROWS_SIDEKICK;
+    }
+
     private void setup() {
         // data
         allHero = Arrays.asList(LiveAHeroWiki.getAllHeros());
@@ -40,10 +48,13 @@ public class HeroLibrary extends Library<HeroAdapter> {
         for (int i = 0; i < 4; i++) {
             int mode = i;
             HeroAdapter ha = new HeroAdapter();
-            ha.setDataList(allHero);
-            ha.setViewMode(mode);
+            ha.setMode(mode);
             adapters.put(mode, ha);
         }
+    }
+
+    public Map<Integer, HeroAdapter> getAdapters() {
+        return adapters;
     }
 
     public int getViewMode() {
@@ -61,9 +72,11 @@ public class HeroLibrary extends Library<HeroAdapter> {
         }
 
         Context c = recyclerView.getContext();
-        RecyclerView.LayoutManager lm = new GridLayoutManager(c, 5);
-        if (mode == ROWS_SIDEKICK || mode == ROWS_HERO) {
+        RecyclerView.LayoutManager lm;
+        if (isRowMode(mode)) {
             lm = new LinearLayoutManager(c, LinearLayoutManager.VERTICAL, false);
+        } else {
+            lm = new GridLayoutManager(c, 5);
         }
         recyclerView.setLayoutManager(lm);
         setViewAdapter(adapters.get(mode));

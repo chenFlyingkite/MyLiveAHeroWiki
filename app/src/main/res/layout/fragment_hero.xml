@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             style="@style/common_text.white"
             android:layout_centerVertical="true"
-            tools:text="string/cards_selection"/>
+            android:text="@string/hero_selection"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -100,5 +100,21 @@
         app:fastScrollVerticalThumbDrawable="@drawable/recycler_thumb"
         app:fastScrollHorizontalTrackDrawable="@drawable/recycler_track"
         app:fastScrollHorizontalThumbDrawable="@drawable/recycler_thumb"/>
+
+    <RelativeLayout
+        android:id="@+id/lahSortArea"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <include
+            android:id="@+id/lahSortPopup"
+            android:layout_marginTop="@dimen/t50dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/popup_lah_sort_hero"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

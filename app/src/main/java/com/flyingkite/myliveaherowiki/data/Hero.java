@@ -55,8 +55,13 @@ public class Hero {
     @SerializedName("sideValues")
     public List<SideValue> sideValues = new ArrayList<>();
 
+
+    private String str;
     @Override
     public String toString() {
-        return new Gson().toJson(this);
+        if (str == null) {
+            str = new Gson().toJson(this);
+        }
+        return str;
     }
 }
