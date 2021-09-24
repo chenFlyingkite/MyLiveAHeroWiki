@@ -3,13 +3,8 @@ package com.flyingkite.myliveaherowiki.library;
 import android.content.Context;
 
 import com.flyingkite.library.widget.Library;
-import com.flyingkite.myliveaherowiki.data.Hero;
-import com.flyingkite.myliveaherowiki.lah.LiveAHeroWiki;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,13 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class HeroLibrary extends Library<HeroAdapter> {
 
-    public static final int GRID_HERO = 0;
-    public static final int ROWS_HERO = 1;
-    public static final int GRID_SIDEKICK = 2;
-    public static final int ROWS_SIDEKICK = 3;
-
-    private int viewMode = GRID_HERO;
-    private List<Hero> allHero = new ArrayList<>();
+    private int viewMode = HeroAdapter.GRID_HERO;
     private Map<Integer, HeroAdapter> adapters = new HashMap<>();
 
     public HeroLibrary(RecyclerView recycler) {
@@ -33,17 +22,7 @@ public class HeroLibrary extends Library<HeroAdapter> {
         setViewMode(viewMode);
     }
 
-    public static boolean isSideMode(int m) {
-        return m == GRID_SIDEKICK || m == ROWS_SIDEKICK;
-    }
-
-    public static boolean isRowMode(int m) {
-        return m == ROWS_HERO || m == ROWS_SIDEKICK;
-    }
-
     private void setup() {
-        // data
-        allHero = Arrays.asList(LiveAHeroWiki.getAllHeros());
         // adapters
         for (int i = 0; i < 4; i++) {
             int mode = i;
@@ -73,7 +52,7 @@ public class HeroLibrary extends Library<HeroAdapter> {
 
         Context c = recyclerView.getContext();
         RecyclerView.LayoutManager lm;
-        if (isRowMode(mode)) {
+        if (HeroAdapter.isRowMode(mode)) {
             lm = new LinearLayoutManager(c, LinearLayoutManager.VERTICAL, false);
         } else {
             lm = new GridLayoutManager(c, 5);

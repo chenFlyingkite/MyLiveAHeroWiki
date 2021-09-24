@@ -3,6 +3,7 @@ package com.flyingkite.myliveaherowiki.data;
 import java.util.List;
 
 public class HeroUtil {
+    public static final String[] roleOrder = {"攻撃", "防御", "補助", "弱体化", "Spd操作", "View獲得", "回復", "特殊", ""};
 
     public static int getHeroSkillPlus(Hero h) {
         List<HeroSkill> li = h.heroSkills;

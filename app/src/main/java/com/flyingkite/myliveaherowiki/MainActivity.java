@@ -27,6 +27,7 @@ public class MainActivity extends BaseActivity {
                 return;
             }
         }
+        super.onBackPressed();
     }
 
     private void loadHero() {

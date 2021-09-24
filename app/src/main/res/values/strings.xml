@@ -1,18 +1,27 @@
 <resources>
     <string name="app_name">MyLiveAHeroWiki</string>
 
+    <string name="search">搜尋</string>
+    <string name="useSearch">使用搜尋</string>
+    <string name="enterText">請輸入文字</string>
+
     <string name="hero_selection">%d / %d 位英雄</string>
     <string name="hero_loaded">%d 英雄已讀取</string>
     <string name="hero_attr">屬性</string>
     <string name="hero_rank">Rank(星數)</string>
     <string name="hero_sort">常用排序</string>
     <string name="hero_skill_content">技能特選</string>
+    <string name="hero_search_domain">搜尋範圍</string>
+
     <string name="hero_id">ID</string>
     <string name="hero_job">役割(角色)</string>
     <string name="hero_hp">HP</string>
     <string name="hero_attack">Attack</string>
     <string name="hero_speed">Speed</string>
     <string name="hero_view">View</string>
+    <string name="hero_view_skill_side">View Skill Side</string>
+    <string name="hero_view_skill2">View Skill 2</string>
+    <string name="hero_view_skill3">View Skill 3</string>
 
     <string name="hero_attr_water">水</string>
     <string name="hero_attr_fires">火</string>
@@ -28,7 +37,29 @@
     <string name="side_equip">裝備技能</string>
     <string name="hero_all">全部</string>
     <string name="hero_skill_tag_one_enemy">敵単体</string>
-    <string name="hero_skill_one_enemy">敵単体 (敵單體)</string>
+    <string name="hero_skill_one_enemy">敵單體</string>
     <string name="hero_skill_tag_all_enemy">敵全体</string>
     <string name="hero_skill_all_enemy">敵全体</string>
+    <string name="hero_skill_tag_one_team">味方単体</string>
+    <string name="hero_skill_one_team">我方單體</string>
+    <string name="hero_skill_tag_all_team">味方全体</string>
+    <string name="hero_skill_all_team">我方全体</string>
+    <string name="hero_skill_tag_attack_up">ATKアップ</string>
+    <string name="hero_skill_attack_up">攻擊 Up</string>
+    <string name="hero_skill_tag_attack_down">ATKダウン</string>
+    <string name="hero_skill_attack_down">攻擊 Down</string>
+    <string name="hero_skill_tag_defense_up">DEFアップ</string>
+    <string name="hero_skill_defense_up">防禦 Up</string>
+    <string name="hero_skill_tag_defense_down">DEFダウン</string>
+    <string name="hero_skill_defense_down">防禦 Down</string>
+    <string name="hero_skill_tag_speed_up">SPDアップ</string>
+    <string name="hero_skill_speed_up">速度 Up</string>
+    <string name="hero_skill_tag_speed_down">SPDダウン</string>
+    <string name="hero_skill_speed_down">速度 Down</string>
+    <string name="hero_skill_tag_view_get">Viewを(.{1,7})獲得</string>
+    <string name="hero_skill_view_get">獲得 View</string>
+    <string name="hero_skill_tag_chance">確率</string>
+    <string name="hero_skill_chance">確率</string>
+    <string name="hero_skill_tag_recover">回復</string>
+    <string name="hero_skill_recover">回復</string>
 </resources>

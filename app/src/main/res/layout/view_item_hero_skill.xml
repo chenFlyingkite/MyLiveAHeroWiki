@@ -44,6 +44,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/t14dp"
         android:textColor="#fff"
+        android:textIsSelectable="true"
         android:background="@drawable/bg_press_sky_rect"
         tools:text="敵単体に150%ダメージ。70%の確率で2回分のDEFダウンを付与。"/>
 

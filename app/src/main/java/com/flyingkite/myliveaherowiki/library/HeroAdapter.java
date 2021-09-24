@@ -29,6 +29,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class HeroAdapter extends RVSelectAdapter<Hero, HeroAdapter.HeroVH, HeroAdapter.ItemListener> implements Loggable {
 
+    //-- Hero modes
+    public static final int GRID_HERO = 0;
+    public static final int ROWS_HERO = 1;
+    public static final int GRID_SIDEKICK = 2;
+    public static final int ROWS_SIDEKICK = 3;
+
+    public static boolean isSideMode(int m) {
+        return m == GRID_SIDEKICK || m == ROWS_SIDEKICK;
+    }
+
+    public static boolean isRowMode(int m) {
+        return m == ROWS_HERO || m == ROWS_SIDEKICK;
+    }
+    //--
+
     public interface ItemListener extends RVSelectAdapter.ItemListener<Hero, HeroVH> {
         default void onFiltered(int selected, int total) {}
     }
@@ -53,7 +68,7 @@ public class HeroAdapter extends RVSelectAdapter<Hero, HeroAdapter.HeroVH, HeroA
                 allSide.add(h);
             }
         }
-        setMode(HeroLibrary.GRID_HERO);
+        setMode(GRID_HERO);
     }
 
     public int getMode() {
@@ -62,7 +77,7 @@ public class HeroAdapter extends RVSelectAdapter<Hero, HeroAdapter.HeroVH, HeroA
 
     public void setMode(int m) {
         mode = m;
-        if (HeroLibrary.isSideMode(m)) {
+        if (isSideMode(m)) {
             setDataList(allSide);
         } else {
             setDataList(allHero);
@@ -111,7 +126,7 @@ public class HeroAdapter extends RVSelectAdapter<Hero, HeroAdapter.HeroVH, HeroA
     @Override
     public HeroVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int id;
-        if (HeroLibrary.isRowMode(mode)) {
+        if (isRowMode(mode)) {
             id = R.layout.view_row_hero;
         } else {
             id = R.layout.view_item_hero;
@@ -131,7 +146,7 @@ public class HeroAdapter extends RVSelectAdapter<Hero, HeroAdapter.HeroVH, HeroA
 //        t.tac("setHero");
 //        t.tac("end onBind");
     }
-    TicTac2 t = new TicTac2();
+    private TicTac2 t = new TicTac2();
 
     private void notifyFiltered() {
         if (onItem != null) {
@@ -158,27 +173,28 @@ public class HeroAdapter extends RVSelectAdapter<Hero, HeroAdapter.HeroVH, HeroA
             makeHeroSkill(v);
         }
 
-        TicTac2 t = new TicTac2();
         public void setHero(Hero h, int mode) {
-//            t.tic();
-//            t.tic();
+            TicTac2 t = new TicTac2();
+            t.enable(false);
+            t.tic();
+            t.tic();
             sidekickOnly = h.heroSkills.size() == 0;
             // Views
             if (heroName != null) {
                 heroName.setText(h.nameJa);
                 heroName.setVisibility(View.VISIBLE);
             }
-            boolean side = HeroLibrary.isSideMode(mode);
-            boolean row = HeroLibrary.isRowMode(mode);
-//            t.tac("setNames");
-//            t.tic();
+            boolean side = isSideMode(mode);
+            boolean row = isRowMode(mode);
+            t.tac("setNames");
+            t.tic();
             setHeroImage(h, side); // slow
-//            t.tac("setImage");
+            t.tac("setHeroImage");
             // setup hero skill views
-//            t.tic();
-            setMode();
-//            t.tac("setMode");
-//            t.tic();
+            t.tic();
+            setMode(side);
+            t.tac("setMode");
+            t.tic();
             if (row) {
                 if (side) {
                     setupSideSkill(h);
@@ -186,8 +202,8 @@ public class HeroAdapter extends RVSelectAdapter<Hero, HeroAdapter.HeroVH, HeroA
                     setupHeroSkill(h);
                 }
             }
-//            t.tac("setSkill"); // slow
-//            t.tac("end");
+            t.tac("setSkill"); // slow
+            t.tac("setHero");
         }
 
         private void setHeroImage(Hero h, boolean isSideMode) {
@@ -204,51 +220,89 @@ public class HeroAdapter extends RVSelectAdapter<Hero, HeroAdapter.HeroVH, HeroA
             heroImage.setImageResource(res);
         }
 
-        private void setMode() {
+        private void setMode(boolean isSideMode) {
             if (heroSkills != null) {
-                heroSkills.setVisibility(sidekickOnly ? View.GONE : View.VISIBLE);
+                boolean show = isSideMode || !sidekickOnly;
+                heroSkills.setVisibility(show ? View.VISIBLE : View.GONE);
             }
         }
 
         private void setupSideSkill(Hero h) {
+            //--
             heroSkill1.reset();
-            heroSkill1.heroSkills.addAll(h.sideSkills);
+            heroSkill1.source = new HSViewData() {
+                @Override
+                public int getCount() {
+                    return h.sideSkills.size();
+                }
+
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void show(int index) {
+                    HeroSkill x = h.sideSkills.get(index);
+                    heroSkill1.view.setText("" + x.view);
+                    heroSkill1.name.setText(x.name);
+                    heroSkill1.content.setText(x.content);
+                    heroSkill1.skillPlus.setVisibility(getCount() > 1 ? View.VISIBLE : View.GONE);
+                }
+            };
             heroSkill1.show();
 
-            // convert SideSkill into HeroSkill and view = -1, to make view to be gone
+            //--
             heroSkill2.reset();
-            for (int j = 0; j < h.sideEquips.size(); j++) {
-                HeroSkill hh = new HeroSkill();
-                SideSkill ss = h.sideEquips.get(j);
-                hh.view = -1;
-                hh.name = ss.name;
-                hh.content = ss.content;
-                heroSkill2.heroSkills.add(hh);
-            }
+            heroSkill2.source = new HSViewData() {
+                @Override
+                public int getCount() {
+                    return h.sideEquips.size();
+                }
+
+                @Override
+                public void show(int index) {
+                    SideSkill ss = h.sideEquips.get(index);
+                    heroSkill2.view.setText("");
+                    heroSkill2.name.setText(ss.name);
+                    heroSkill2.content.setText(ss.content);
+                    heroSkill2.skillPlus.setVisibility(View.VISIBLE);
+                }
+            };
             heroSkill2.show();
 
+            //--
             heroSkill3.reset();
             heroSkill3.root.setVisibility(View.GONE);
         }
 
         private void setupHeroSkill(Hero h) {
             HeroSkillView[] hs = {heroSkill1, heroSkill2, heroSkill3};
+            int n = h.heroSkills.size();
             for (int i = 0; i < hs.length; i++) {
                 HeroSkillView hi = hs[i];
                 hi.reset();
-                if (i >= h.heroSkills.size()) {
+                if (i >= n) {
                     continue; // Sidekick only
                 }
-                HeroSkill x = h.heroSkills.get(i);
-                hi.heroSkills.add(x);
-                // + skill
-                if (h.heroSkills.size() >= 4) {
-                    HeroSkill s = h.heroSkills.get(3);
-                    if (s.name.startsWith(x.name)) {
-                        hi.heroSkills.add(s);
-                        hi.plusAt = 1;
+                final int atI = i;
+                hi.source = new HSViewData() {
+                    @Override
+                    public int getCount() {
+                        return h.heroPlus == atI ? 2 : 1;
                     }
-                }
+
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void show(int index) {
+                        HeroSkill x;
+                        if (index != 0) {
+                            x = h.heroSkills.get(3); // plus skill is at last
+                        } else {
+                            x = h.heroSkills.get(atI);
+                        }
+                        hi.view.setText("" + x.view);
+                        hi.name.setText(x.name);
+                        hi.content.setText(x.content);
+                        hi.skillPlus.setVisibility(getCount() > 1 ? View.VISIBLE : View.GONE);
+                    }
+                };
                 hi.show();
             }
         }
@@ -267,15 +321,11 @@ public class HeroAdapter extends RVSelectAdapter<Hero, HeroAdapter.HeroVH, HeroA
             }
             return h;
         }
+    }
 
-        private SideSkillView makeSSView(View v, int id) {
-            View w = v.findViewById(id);
-            SideSkillView h = null;
-            if (w != null) {
-                h = new SideSkillView(w);
-            }
-            return h;
-        }
+    private interface HSViewData {
+        int getCount();
+        void show(int index);
     }
 
     public static class HeroSkillView {
@@ -284,9 +334,8 @@ public class HeroAdapter extends RVSelectAdapter<Hero, HeroAdapter.HeroVH, HeroA
         private TextView view;
         private TextView content;
         private ImageView skillPlus;
-        private List<HeroSkill> heroSkills = new ArrayList<>();
         private int showAt;
-        private int plusAt = -1;
+        private HSViewData source;
 
         public HeroSkillView(View v) {
             v.setOnClickListener((w) -> {
@@ -300,82 +349,21 @@ public class HeroAdapter extends RVSelectAdapter<Hero, HeroAdapter.HeroVH, HeroA
         }
 
         private void reset() {
-            heroSkills.clear();
             showAt = 0;
-            plusAt = -1;
         }
 
         private void showNextSkill() {
             showAt++;
-            if (showAt >= heroSkills.size()) {
+            int n = source == null ? 0 : source.getCount();
+            if (showAt >= n) {
                 showAt = 0;
             }
             show();
         }
 
         private void show() {
-            show(heroSkills.get(showAt));
-        }
-
-        @SuppressLint("SetTextI18n")
-        private void show(HeroSkill s) {
-            if (s.view < 0) {
-                view.setText("");
-            } else {
-                view.setText("" + s.view);
-            }
-            name.setText("" + s.name);
-            content.setText("" + s.content);
-            skillPlus.setVisibility(heroSkills.size() > 1 ? View.VISIBLE : View.GONE);
-            //skillPlus.setVisibility(plusAt == showAt ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    public static class SideSkillView {
-        // name and contents same size
-        private List<String> names = new ArrayList<>();
-        private List<String> contents = new ArrayList<>();
-        private int level;
-
-        private TextView name;
-        private TextView content;
-
-        public SideSkillView(View v) {
-            v.setOnClickListener((w) -> {
-                level++;
-                if (level >= names.size()) {
-                    level = 0;
-                }
-                show();
-            });
-            name = v.findViewById(R.id.sideSkillName);
-            content = v.findViewById(R.id.sideSkillContent);
-        }
-
-        public void show() {
-            if (level < names.size()) {
-                name.setText(names.get(level));
-                content.setText(contents.get(level));
-            }
-        }
-
-        public void setHeroSkill(List<HeroSkill> li) {
-            names.clear();
-            contents.clear();
-            for (int i = 0; i < li.size(); i++) {
-                HeroSkill h = li.get(i);
-                names.add(h.name);
-                contents.add(h.content);
-            }
-        }
-
-        public void setSideSkill(List<SideSkill> li) {
-            names.clear();
-            contents.clear();
-            for (int i = 0; i < li.size(); i++) {
-                SideSkill h = li.get(i);
-                names.add(h.name);
-                contents.add(h.content);
+            if (source != null) {
+                source.show(showAt);
             }
         }
     }

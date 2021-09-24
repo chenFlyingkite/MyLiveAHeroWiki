@@ -12,9 +12,9 @@
         android:padding="@dimen/t2dp"
         app:layout_widthPercent="100%"
         app:layout_aspectRatio="100%"
-        android:src="@drawable/image_hero_akashi"
-        android:background="@drawable/bg_press_sky_rect"/>
+        android:src="@drawable/image_hero_akashi"/>
     <!--
+        android:background="@drawable/bg_press_sky_rect"
     <RelativeLayout
         android:id="@+id/tiImg"
         android:layout_width="wrap_content"

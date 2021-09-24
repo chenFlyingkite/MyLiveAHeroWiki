@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.flyingkite.myliveaherowiki.data.Hero;
 import com.flyingkite.myliveaherowiki.data.HeroSkill;
 import com.flyingkite.myliveaherowiki.data.HeroUtil;
+import com.flyingkite.myliveaherowiki.data.Heros;
 import com.flyingkite.myliveaherowiki.data.SideSkill;
 import com.flyingkite.myliveaherowiki.lah.LiveAHeroWiki;
 import com.flyingkite.myliveaherowiki.lah.query.AllHero;
@@ -19,10 +22,14 @@ import com.flyingkite.myliveaherowiki.util.select.SelectedData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -32,6 +39,8 @@ import flyingkite.tool.TaskMonitor;
 
 public class HeroFragment extends BaseFragment implements ViewUtil {
 
+    private View gridList;
+    private View heroSide;
     private HeroLibrary heroLib;
     private View sortArea;
     private RecyclerView recycler;
@@ -51,7 +60,22 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
     private CheckBox sortSpecialNo;
     private CheckBox sortSpecialOneEnemy;
     private CheckBox sortSpecialAllEnemy;
-
+    private CheckBox sortSpecialOneTeam;
+    private CheckBox sortSpecialAllTeam;
+    private CheckBox sortSpecialAttackUp;
+    private CheckBox sortSpecialAttackDown;
+    private CheckBox sortSpecialDefenseUp;
+    private CheckBox sortSpecialDefenseDown;
+    private CheckBox sortSpecialSpeedUp;
+    private CheckBox sortSpecialSpeedDown;
+    private CheckBox sortSpecialViewGet;
+    private CheckBox sortSpecialChance;
+    private CheckBox sortSpecialRecover;
+    private CheckBox search;
+    private RadioGroup sortCommon;
+    private EditText searchText;
+    private View searchClear;
+    private View searchApply;
 
     private final List<Hero> allHero = new ArrayList<>();
 
@@ -69,19 +93,21 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
     }
 
     private void setupToolbar() {
-        findViewById(R.id.lahToolBar).setOnClickListener((v) -> {
+        gridList = findViewById(R.id.lahGridList);
+        gridList.setOnClickListener((v) -> {
             int mode = heroLib.getViewMode();
             int next = mode ^ 0x1;
-            v.setSelected(HeroLibrary.isRowMode(mode));
+            updateMode(next);
             heroLib.setViewMode(next);
             applySelection();
             logE("mode = %s", mode);
         });
 
-        findViewById(R.id.lahFavor).setOnClickListener((v) -> {
+        heroSide = findViewById(R.id.lahModeHeroSide);
+        heroSide.setOnClickListener((v) -> {
             int mode = heroLib.getViewMode();
             int next = mode ^ 0x2;
-            v.setSelected(HeroLibrary.isSideMode(mode));
+            updateMode(next);
             heroLib.setViewMode(next);
             applySelection();
             logE("mode = %s", mode);
@@ -92,6 +118,11 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
         initScrollTools(findViewById(R.id.lahGoTop), findViewById(R.id.lahGoBottom), recycler);
 
         initSortMenu();
+    }
+
+    private void updateMode(int mode) {
+        gridList.setSelected(HeroAdapter.isRowMode(mode));
+        heroSide.setSelected(HeroAdapter.isSideMode(mode));
     }
 
     @Override
@@ -125,6 +156,8 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
         initSortByRank(menu);
         initSortBySpecial(menu);
         initSortSpecial(menu);
+        initSortBy(menu);
+        initSortByText();
     }
 
 
@@ -148,13 +181,13 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
         for (ViewGroup vg : vgs) {
             setAllChildSelected(vg, false);
         }
-//        sortCommon.check(R.id.sortCommonNormId);
+        sortCommon.check(R.id.sortCommonId);
 //        sortFormulaCard.check(R.id.sortFormulaCardNo);
 //        sortFormulaList.check(R.id.sortFormulaNo);
         setCheckedIncludeNo(sortSpecialNo, R.id.sortSpecialNo, sortSpecial);
         setCheckedIncludeNo(specialAll, specialAll, specialArea);
 //        setCheckedIncludeNo(sortImproveNo, R.id.sortImproveNo, sortImprove);
-//        search.setChecked(false);
+        search.setChecked(false);
     }
 
     // click listeners for sort menus --------
@@ -176,6 +209,45 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
         sortSpecialNo = findViewById(R.id.sortSpecialNo);
         sortSpecialOneEnemy = findViewById(R.id.sortSpecialOneEnemy);
         sortSpecialAllEnemy = findViewById(R.id.sortSpecialAllEnemy);
+        sortSpecialOneTeam = findViewById(R.id.sortSpecialOneTeam);
+        sortSpecialAllTeam = findViewById(R.id.sortSpecialAllTeam);
+        sortSpecialAttackUp = findViewById(R.id.sortSpecialAttackUp);
+        sortSpecialAttackDown = findViewById(R.id.sortSpecialAttackDown);
+        sortSpecialDefenseUp = findViewById(R.id.sortSpecialDefenseUp);
+        sortSpecialDefenseDown = findViewById(R.id.sortSpecialDefenseDown);
+        sortSpecialSpeedUp = findViewById(R.id.sortSpecialSpeedUp);
+        sortSpecialSpeedDown = findViewById(R.id.sortSpecialSpeedDown);
+        sortSpecialViewGet = findViewById(R.id.sortSpecialViewGet);
+        sortSpecialChance = findViewById(R.id.sortSpecialChance);
+        sortSpecialRecover = findViewById(R.id.sortSpecialRecover);
+        search = findViewById(R.id.sortSearchUse);
+    }
+
+    private void initSortBy(View menu) {
+        sortCommon = initSortOf(menu, R.id.sortCommonList, this::clickCommon);
+    }
+
+    private void clickCommon(View v) {
+        int id = v.getId();
+        sortCommon.check(id);
+
+        applySelection();
+    }
+
+    private void initSortByText() {
+        searchText = findViewById(R.id.searchText);
+        searchClear = findViewById(R.id.searchClear);
+        searchApply = findViewById(R.id.searchApply);
+
+        searchClear.setOnClickListener((v) -> {
+            searchText.setText("");
+            clickSearch(v);
+        });
+        searchApply.setOnClickListener((v) -> {
+            //logSearch(searchText.getText().toString());
+            search.setChecked(true);
+            clickSearch(v);
+        });
     }
 
     private void initSortSpecial(View menu) {
@@ -212,6 +284,10 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
         applySelection();
     }
 
+    private void clickSearch(View v) {
+        applySelection();
+    }
+
     private <T extends ViewGroup> T initSortOf(View menu, @IdRes int id, View.OnClickListener childClick) {
         return setTargetChildClick(menu, id, childClick);
     }
@@ -220,9 +296,6 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
         // Attribute
         Set<String> attrs = new HashSet<>();
         getSelectTags(sortAttributes, attrs, true);
-        // Race
-//        List<String> races = new ArrayList<>();
-//        getSelectTags(sortRace, races, true);
         // Rank
         Set<String> ranks = new HashSet<>();
         getSelectTags(sortRanks, ranks, true);
@@ -271,11 +344,12 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
         showToast(getString(R.string.hero_loaded, n));
         lahInfo.setText(getString(R.string.hero_selection, n, n));
         initLibrary();
+        updateMode(heroLib.getViewMode());
     }
 
     private void initLibrary() {
         HeroLibrary lib = new HeroLibrary(recycler);
-        lib.setViewMode(HeroLibrary.GRID_HERO);
+        lib.setViewMode(HeroAdapter.ROWS_HERO);
         Map<Integer, HeroAdapter> adapters = lib.getAdapters();
         for (int i = 0; i < 4; i++) {
             HeroAdapter ha = adapters.get(i);
@@ -302,9 +376,14 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
         private Set<String> attrs;
         private Set<String> ranks;
         private HeroAdapter adapter;
+        private Map<String, Integer> orderRole = new HashMap<>();
 
         public LahSelectHero() {
             super(new ArrayList<>());
+            String[] order = HeroUtil.roleOrder;
+            for (int i = 0; i < order.length; i++) {
+                orderRole.put(order[i], i);
+            }
         }
 
         @NonNull
@@ -332,7 +411,7 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
 
         private boolean isSideMode() {
             if (adapter != null) {
-                return HeroLibrary.isSideMode(adapter.getMode());
+                return HeroAdapter.isSideMode(adapter.getMode());
             } else {
                 return false;
             }
@@ -360,24 +439,57 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
             }
 
             List<String> src = getSkillSort(h);
+            String find = searchText.getText().toString();
+            boolean hasSearch = !find.isEmpty();
             // todo how about select one & all?
             for (int i = 0; i < src.size(); i++) {
                 String s = src.get(i);
-                if (hasItsTag(s, sortSpecialOneEnemy)) {
+                if (hasRegexTag(s, sortSpecialOneEnemy)) {
                     return true;
-                } else if (hasItsTag(s, sortSpecialAllEnemy)) {
+                } else if (hasRegexTag(s, sortSpecialAllEnemy)) {
                     return true;
+                } else if (hasRegexTag(s, sortSpecialOneTeam)) {
+                    return true;
+                } else if (hasRegexTag(s, sortSpecialAllTeam)) {
+                    return true;
+                } else if (hasRegexTag(s, sortSpecialAttackUp)) {
+                    return true;
+                } else if (hasRegexTag(s, sortSpecialAttackDown)) {
+                    return true;
+                } else if (hasRegexTag(s, sortSpecialDefenseUp)) {
+                    return true;
+                } else if (hasRegexTag(s, sortSpecialDefenseDown)) {
+                    return true;
+                } else if (hasRegexTag(s, sortSpecialSpeedUp)) {
+                    return true;
+                } else if (hasRegexTag(s, sortSpecialSpeedDown)) {
+                    return true;
+                } else if (hasRegexTag(s, sortSpecialViewGet)) {
+                    return true;
+                } else if (hasRegexTag(s, sortSpecialChance)) {
+                    return true;
+                } else if (hasRegexTag(s, sortSpecialRecover)) {
+                    return true;
+                } else if (hasSearch) {
+                    if (s.contains(find)) {
+                        return true;
+                    }
                 }
             }
             return false;
         }
 
-        private boolean hasItsTag(String s, CheckBox c) {
+        private boolean hasRegexTag(String s, CheckBox c) {
             if (c.isChecked()) {
                 String k = (String) c.getTag();
-                if (s.contains(k)) {
+                Pattern p = Pattern.compile(k);
+                if (p.matcher(s).find()) {
                     return true;
                 }
+                // string
+//                if (s.contains(k)) {
+//                    return true;
+//                }
             }
             return false;
         }
@@ -421,7 +533,94 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
         @NonNull
         @Override
         public List<SelectedData> sort(@NonNull List<SelectedData> result) {
+            Comparator<SelectedData> cmp = getCommonComparator();
+            if (cmp != null) {
+                Collections.sort(result, cmp);
+            }
             return result;
+        }
+
+
+
+
+        private Comparator<SelectedData> getCommonComparator() {
+            // Create comparator
+            int id = sortCommon.getCheckedRadioButtonId();
+            if (id == RadioGroup.NO_ID) {
+                return null;
+            }
+            return (o1, o2) -> {
+                int k1 = o1.index;
+                int k2 = o2.index;
+                boolean dsc = false;
+                Hero c1 = from().get(k1);
+                Hero c2 = from().get(k2);
+                int v1 = 0, v2 = 0;
+                int id1 = Heros.getByJA(c1.nameJa).ordinal();
+                int id2 = Heros.getByJA(c2.nameJa).ordinal();
+
+                if (id == R.id.sortCommonId) {
+                    v1 = id1;
+                    v2 = id2;
+                } else if (id == R.id.sortCommonRank) {
+                    v1 = c1.rankFirst;
+                    v2 = c2.rankFirst;
+                } else if (id == R.id.sortCommonJob) {
+                    v1 = orderRole.get(c1.role);
+                    v2 = orderRole.get(c2.role);
+                } else if (id == R.id.sortCommonHp) {
+//                    v1 = c1;
+//                    v2 = c2;
+                } else if (id == R.id.sortCommonAttack) {
+//                    v1 = c1.maxHPAme + c1.maxAttackAme + c1.maxRecoveryAme;
+//                    v2 = c2.maxHPAme + c2.maxAttackAme + c2.maxRecoveryAme;
+                } else if (id == R.id.sortCommonSpeed) {
+//                } else if (id == R.id.sortCommonViewSkill1) {
+//                    v1 = getHeroSkillView(c1, 0);
+//                    v2 = getHeroSkillView(c2, 0);
+                } else if (id == R.id.sortCommonViewSkill2) {
+                    v1 = getHeroSkillView(c1, 1);
+                    v2 = getHeroSkillView(c2, 1);
+                } else if (id == R.id.sortCommonViewSkill3) {
+                    v1 = getHeroSkillView(c1, 2);
+                    v2 = getHeroSkillView(c2, 2);
+                } else if (id == R.id.sortCommonViewSkillSide) {
+                    if (isSideMode()) {
+                        v1 = getSideSkillView(c1);
+                        v2 = getSideSkillView(c2);
+                    }
+                } else if (id == 0) {
+                } else {
+                }
+
+                int ans;
+                if (dsc) {
+                    ans = Integer.compare(v2, v1);
+                } else {
+                    ans = Integer.compare(v1, v2);
+                }
+                if (ans == 0) { // compare id if same
+                    ans = Integer.compare(id1, id2);
+                }
+                return ans;
+            };
+        }
+
+        private int getSideSkillView(Hero h) {
+            int n = h.sideSkills.size();
+            return h.sideSkills.get(n - 1).view;
+        }
+
+        private int getHeroSkillView(Hero h, int k) {
+            int v = 0;
+            int n = h.heroSkills.size();
+            if (n > k) {
+                v = h.heroSkills.get(k).view;
+            }
+            if (h.heroPlus == k && n > 3) {
+                v = Math.min(v, h.heroSkills.get(3).view);
+            }
+            return v;
         }
     }
     //--

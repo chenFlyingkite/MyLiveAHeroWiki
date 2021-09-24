@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hero {
-    @SerializedName("idNorm")
-    public String idNorm = "";
-
     @SerializedName("nameEn")
     public String nameEn = "";
 
@@ -55,6 +52,9 @@ public class Hero {
     @SerializedName("sideValues")
     public List<SideValue> sideValues = new ArrayList<>();
 
+    // generated, hero[heroPlus] has skill +
+    @SerializedName("heroPlus")
+    public int heroPlus = -1;
 
     private String str;
     @Override

@@ -20,19 +20,21 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/lahFavor"
+                android:id="@+id/lahModeHeroSide"
                 style="@style/lahIcon"
                 android:layout_width="@dimen/t45dp"
                 android:layout_height="@dimen/t45dp"
-                android:src="@drawable/ic_favorite_border_white_48"
+                android:padding="@dimen/t5dp"
+                android:src="@drawable/icon_hero_side"
                 android:background="@drawable/bg_press_sky_rect"/>
 
             <ImageView
-                android:id="@+id/lahToolBar"
+                android:id="@+id/lahGridList"
                 style="@style/lahIcon"
                 android:layout_width="@dimen/t45dp"
                 android:layout_height="@dimen/t45dp"
-                android:src="@drawable/ic_open_in_browser_white_48dp"
+                android:padding="@dimen/t5dp"
+                android:src="@drawable/icon_grid_list"
                 android:background="@drawable/bg_press_sky_rect"/>
 
             <ImageView
