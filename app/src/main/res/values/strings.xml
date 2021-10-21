@@ -30,12 +30,15 @@
     <string name="hero_attr_darks">影</string>
 
     <string name="hero_no">無</string>
-    <string name="hero_skill_1">技能 1</string>
-    <string name="hero_skill_2">技能 2</string>
-    <string name="hero_skill_3">技能 3</string>
-    <string name="hero_skill_4">助手技能</string>
+    <string name="hero_skill_1">英雄 1</string>
+    <string name="hero_skill_2">英雄 2</string>
+    <string name="hero_skill_3">英雄 3</string>
+    <string name="hero_skill_4">助手 1</string>
     <string name="side_equip">裝備技能</string>
-    <string name="hero_all">全部</string>
+    <string name="hero_skill">英雄技能</string>
+    <string name="side_skill">助手技能</string>
+    <string name="skill_chance_0">確率 > 0</string>
+    <string name="skill_chance_1">確率 = 1</string>
     <string name="hero_skill_tag_one_enemy">敵単体</string>
     <string name="hero_skill_one_enemy">敵單體</string>
     <string name="hero_skill_tag_all_enemy">敵全体</string>

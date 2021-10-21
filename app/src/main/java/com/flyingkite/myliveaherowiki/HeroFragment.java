@@ -251,13 +251,13 @@ public class HeroFragment extends BaseFragment implements ViewUtil {
     }
 
     private void initSortSpecial(View menu) {
-        specialAll = findViewById(R.id.specialAll);
+        //specialAll = findViewById(R.id.specialAll);
         specialSkill1 = findViewById(R.id.specialSkill1);
         specialSkill2 = findViewById(R.id.specialSkill2);
         specialSkill3 = findViewById(R.id.specialSkill3);
         specialSkill4 = findViewById(R.id.specialSkill4);
         specialEquip = findViewById(R.id.specialEquip);
-        specialArea = initSortOf(menu, R.id.specialArea, this::clickSpecialDom);
+        //specialArea = initSortOf(menu, R.id.specialArea, this::clickSpecialDom);
     }
 
     private void clickAttr(View v) {

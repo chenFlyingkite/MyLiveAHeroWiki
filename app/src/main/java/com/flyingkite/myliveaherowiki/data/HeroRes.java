@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class HeroRes {
+    @Deprecated
     private static final Map<String, Integer> heroImage = new HashMap<>();
+    @Deprecated
     private static final Map<String, Integer> sideImage = new HashMap<>();
     private static final Map<String, Integer> attrImage = new HashMap<>();
     private static final Map<String, Integer> attrBgImage = new HashMap<>();
@@ -163,8 +165,10 @@ public class HeroRes {
         heroInfo(Heros.Crowne, R.drawable.image_hero_crowne, R.drawable.image_sidekick_crowne);
         heroInfo(Heros.Gammei, R.drawable.image_hero_gammei, R.drawable.image_sidekick_gammei);
         heroInfo(Heros.Barrel, R.drawable.image_hero_barrel, R.drawable.image_sidekick_barrel);
+        heroInfo(Heros.Barrel2, R.drawable.image_hero_barrel2, R.drawable.image_sidekick_barrel);
         heroInfo(Heros.Furlong, R.drawable.image_hero_furlong, R.drawable.image_sidekick_furlong);
         heroInfo(Heros.Victom, R.drawable.image_hero_victom, R.drawable.image_sidekick_victom);
+        heroInfo(Heros.Victom2, R.drawable.image_hero_victom2, R.drawable.image_sidekick_victom);
         heroInfo(Heros.Kyoichi, R.drawable.image_hero_kyoichi, R.drawable.image_sidekick_kyoichi);
         heroInfo(Heros.Kyoichi2, R.drawable.image_hero_kyoichi2, R.drawable.image_sidekick_kyoichi);
         heroInfo(Heros.Flamier, R.drawable.image_hero_flamier, R.drawable.image_sidekick_flamier);
@@ -206,6 +210,7 @@ public class HeroRes {
         heroInfo(Heros.Melide, 0, R.drawable.image_sidekick_melide);
         heroInfo(Heros.Yoshiori, R.drawable.image_hero_yoshiori, R.drawable.image_sidekick_yoshiori);
         heroInfo(Heros.Pubraseer, R.drawable.image_hero_pubraseer, R.drawable.image_sidekick_pubraseer);
+        heroInfo(Heros.Okitaka, R.drawable.image_hero_okitaka, R.drawable.image_sidekick_okitaka);
         heroInfo(Heros.Player, 0, R.drawable.image_sidekick_player);
     }
 
@@ -227,6 +232,7 @@ public class HeroRes {
         });
     }
 
+    /*
     public static int getHeroImage(Hero h) {
         return get(h, (he) -> {
             return heroImage.get(h.nameJa);
@@ -265,6 +271,7 @@ public class HeroRes {
             return R.drawable.ui_frame_s_01;
         });
     }
+    */
 
     //-- Interface to simplify fetch
     private interface Got {
